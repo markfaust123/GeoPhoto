@@ -1,6 +1,7 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import type { Place } from "../../lib/types";
 import PlaceItem from "./PlaceItem";
+import { Colors } from "../../lib/constants";
 
 const PlacesList = ({ places }: { places: Place[] }) => {
 
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     fallbackText: {
+        color: Colors.primary200,
         fontSize: 16,
     }
 })
