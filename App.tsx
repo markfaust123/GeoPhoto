@@ -34,14 +34,14 @@ export default function App() {
                   size={24}
                   color={tintColor}
                   onPress={() => {
-                    navigation.navigate("AddPlaces");
+                    navigation.navigate("AddPlace");
                   }}
                 />
               ),
             })}
           />
           <Stack.Screen
-            name="AddPlaces"
+            name="AddPlace"
             component={AddPlace}
             options={{ headerBackTitle: "Back", title: "Add a New Place" }}
           />
