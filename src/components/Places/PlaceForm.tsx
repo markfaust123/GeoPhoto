@@ -1,5 +1,12 @@
 import { useCallback, useState } from "react";
-import { Alert, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { Colors } from "../../lib/constants";
 import ImagePicker from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
@@ -33,7 +40,6 @@ const PlaceForm = ({
   );
 
   const handleSavePlace = () => {
-    console.log(selectImage, pickedLocation);
     if (selectImage && pickedLocation) {
       const placeData = {
         id: new Date().toString() + Math.random().toString(),
@@ -44,7 +50,10 @@ const PlaceForm = ({
       };
       onCreatePlace(placeData);
     } else {
-      Alert.alert("No image taken or location picked!", "Please set to continue.")
+      Alert.alert(
+        "No image taken or location picked!",
+        "Please set to continue."
+      );
     }
   };
 

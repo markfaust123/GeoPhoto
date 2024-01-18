@@ -43,7 +43,7 @@ const LocationPicker = ({
         const address = await getAddress(pickedLocation);
         onPickLocation(pickedLocation, address);
       }
-    }
+    };
     handleLocation();
   }, [pickedLocation, onPickLocation]);
 
