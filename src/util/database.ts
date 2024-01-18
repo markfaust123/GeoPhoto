@@ -4,7 +4,7 @@ import type { Place } from "../lib/types";
 const database = SQLite.openDatabase("places.db");
 
 export const init = (): Promise<void> => {
-  const promise = new Promise<void>((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     const result = database.transaction((tx) => {
       tx.executeSql(
         `CREATE TABLE IF NOT EXISTS places (
@@ -25,11 +25,10 @@ export const init = (): Promise<void> => {
     });
     resolve(result);
   });
-  return promise;
 };
 
-export const insertPlace = (place: Place) => {
-  const promise = new Promise((resolve, reject) => {
+export const insertPlace = (place: Place): Promise<object> => {
+  return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
         `INSERT INTO places (title, imageUri, address, latitude, longitude) VALUES (?, ?, ?, ?, ?)`,
@@ -41,7 +40,6 @@ export const insertPlace = (place: Place) => {
           place.location.longitude,
         ],
         (_, result) => {
-          console.log(result);
           resolve(result);
         },
         (_, error) => {
@@ -51,5 +49,27 @@ export const insertPlace = (place: Place) => {
       );
     });
   });
-  return promise;
+};
+
+export const fetchPlaces = (): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    database.transaction((tx) => {
+      tx.executeSql(
+        `SELECT * FROM places`,
+        [],
+        (_, result) => {
+          const places: Place[] = [];
+          let place: Place;
+          for (place of result.rows._array) {
+            places.push(place);
+          }
+            resolve(places as unknown as void | PromiseLike<void>);
+        },
+        (_, error) => {
+          reject(error);
+          return true;
+        }
+      );
+    });
+  });
 };
