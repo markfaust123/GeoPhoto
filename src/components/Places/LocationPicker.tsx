@@ -8,14 +8,16 @@ import {
 } from "expo-location";
 import { useState } from "react";
 import { getMapPreview } from "../../util/location";
+import { useNavigation } from "@react-navigation/native";
+import type { Location } from "../../lib/types";
 
 const LocationPicker = () => {
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
-  const [pickedLocation, setPickedLocation] = useState<{
-    latitude: number;
-    longitude: number;
-  }>();
+  const [pickedLocation, setPickedLocation] = useState<Location>();
+
+  const navigation = useNavigation<any>();
+
   const verifyPermissions = async () => {
     if (
       locationPermissionInformation?.status === PermissionStatus.UNDETERMINED
@@ -47,7 +49,9 @@ const LocationPicker = () => {
     });
   };
 
-  const handlePickOnMap = () => {};
+  const handlePickOnMap = () => {
+    navigation.navigate("Map");
+  };
 
   let locationPreview = <Text>No location picked yet.</Text>;
 
@@ -56,7 +60,7 @@ const LocationPicker = () => {
       <Image
         style={styles.image}
         source={{
-          uri: getMapPreview(pickedLocation.latitude, pickedLocation.longitude),
+          uri: getMapPreview(pickedLocation),
         }}
       />
     );

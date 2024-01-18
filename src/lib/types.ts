@@ -6,7 +6,7 @@ export type Place = {
     location: Location,
 }
 
-type Location = {
-    lat: number,
-    long: number,
+export type Location = {
+    latitude: number,
+    longitude: number,
 }
