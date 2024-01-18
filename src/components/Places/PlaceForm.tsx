@@ -9,7 +9,9 @@ import type { Location } from "../../lib/types";
 const PlaceForm = () => {
   const [enteredTitle, setEnteredTitle] = useState<string>("");
   const [selectImage, setSelectImage] = useState<string>();
-  const [pickedLocation, setPickedLocation] = useState<Location>();
+  const [pickedLocation, setPickedLocation] = useState<
+    Location & { address: string }
+  >();
 
   const handleChangeInputText = (text: string) => {
     setEnteredTitle(text);
@@ -19,9 +21,12 @@ const PlaceForm = () => {
     setSelectImage(imageUri);
   };
 
-  const handlePickLocation = useCallback((location: Location) => {
-    setPickedLocation(location);
-  }, []);
+  const handlePickLocation = useCallback(
+    (location: Location, address: string) => {
+      setPickedLocation({ ...location, address: address });
+    },
+    []
+  );
 
   const handleSavePlace = () => {
     console.log(selectImage, pickedLocation);
