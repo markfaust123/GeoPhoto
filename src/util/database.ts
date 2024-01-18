@@ -87,7 +87,6 @@ export const fetchPlaceDetails = (id: string): Promise<Place> => {
         [id],
         (_, result) => {
           const item = result.rows._array[0];
-          console.log(item);
           const place: Place = {
             id: item.id,
             address: item.address,
