@@ -19,6 +19,7 @@ const PlacesList = ({ places }: { places: Place[] }) => {
 
   return (
     <FlatList
+    style={styles.list}
       data={places}
       renderItem={({ item }) => (
         <PlaceItem
@@ -34,6 +35,9 @@ const PlacesList = ({ places }: { places: Place[] }) => {
 };
 
 const styles = StyleSheet.create({
+  list: {
+    margin: 24
+  },  
   fallbackContainer: {
     flex: 1,
     justifyContent: "center",
