@@ -51,7 +51,7 @@ export const insertPlace = (place: Place): Promise<object> => {
   });
 };
 
-export const fetchPlaces = (): Promise<void> => {
+export const fetchPlaces = (): Promise<object> => {
   return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
@@ -63,7 +63,25 @@ export const fetchPlaces = (): Promise<void> => {
           for (place of result.rows._array) {
             places.push(place);
           }
-            resolve(places as unknown as void | PromiseLike<void>);
+          resolve(places);
+        },
+        (_, error) => {
+          reject(error);
+          return true;
+        }
+      );
+    });
+  });
+};
+
+export const fetchPlaceDetails = (id: string): Promise<Place> => {
+  return new Promise<Place>((resolve, reject) => {
+    database.transaction((tx) => {
+      tx.executeSql(
+        `SELECT * FROM places WHERE id = ?`,
+        [id],
+        (_, result) => {
+          resolve(result.rows._array[0]);
         },
         (_, error) => {
           reject(error);

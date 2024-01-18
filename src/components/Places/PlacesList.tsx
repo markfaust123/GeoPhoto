@@ -7,6 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 const PlacesList = ({ places }: { places: Place[] }) => {
   const navigation = useNavigation<any>();
 
+  const handleSelectPlace = (id: string) => {
+    navigation.navigate("PlaceDetails", { placeId: id });
+  };
+
   if (!places || places.length === 0) {
     return (
       <View style={styles.fallbackContainer}>
@@ -19,16 +23,9 @@ const PlacesList = ({ places }: { places: Place[] }) => {
 
   return (
     <FlatList
-    style={styles.list}
+      style={styles.list}
       data={places}
-      renderItem={({ item }) => (
-        <PlaceItem
-          onSelect={() => {
-            navigation.navigate("", { placeId: item.id });
-          }}
-          place={item}
-        />
-      )}
+      renderItem={({ item }) => <PlaceItem onSelect={handleSelectPlace} place={item} />}
       keyExtractor={(item) => item.id}
     />
   );
@@ -36,8 +33,8 @@ const PlacesList = ({ places }: { places: Place[] }) => {
 
 const styles = StyleSheet.create({
   list: {
-    margin: 24
-  },  
+    margin: 24,
+  },
   fallbackContainer: {
     flex: 1,
     justifyContent: "center",

@@ -9,6 +9,7 @@ import Map from "./src/screens/Map";
 import { useEffect, useState } from "react";
 import { init } from "./src/util/database";
 import * as SplashScreen from "expo-splash-screen";
+import PlaceDetails from "./src/screens/PlaceDetails";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -67,6 +68,13 @@ export default function App() {
             options={{ headerBackTitle: "Back", title: "Add a New Place" }}
           />
           <Stack.Screen name="Map" component={Map} />
+          <Stack.Screen
+            name="PlaceDetails"
+            component={PlaceDetails}
+            options={{
+              title: "Loading Place...",
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
