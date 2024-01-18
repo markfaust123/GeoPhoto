@@ -59,9 +59,14 @@ export const fetchPlaces = (): Promise<object> => {
         [],
         (_, result) => {
           const places: Place[] = [];
-          let place: Place;
-          for (place of result.rows._array) {
-            places.push(place);
+          for (const item of result.rows._array) {
+            places.push({
+              id: item.id,
+              address: item.address,
+              imageUri: item.imageUri,
+              location: { latitude: item.latitude, longitude: item.longitude },
+              title: item.title,
+            });
           }
           resolve(places);
         },
@@ -81,7 +86,16 @@ export const fetchPlaceDetails = (id: string): Promise<Place> => {
         `SELECT * FROM places WHERE id = ?`,
         [id],
         (_, result) => {
-          resolve(result.rows._array[0]);
+          const item = result.rows._array[0];
+          console.log(item);
+          const place: Place = {
+            id: item.id,
+            address: item.address,
+            imageUri: item.imageUri,
+            location: { latitude: item.latitude, longitude: item.longitude },
+            title: item.title,
+          };
+          resolve(place);
         },
         (_, error) => {
           reject(error);

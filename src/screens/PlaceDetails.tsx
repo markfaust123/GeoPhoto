@@ -13,7 +13,15 @@ const PlaceDetails = ({
   navigation: any;
 }) => {
   const [fetchedPlace, setFetchedPlace] = useState<Place>();
-  const handleShowOnMap = () => {};
+
+  const handleShowOnMap = () => {
+    if (fetchedPlace) {
+      navigation.navigate("Map", {
+        initialLat: fetchedPlace.location.latitude,
+        initialLong: fetchedPlace.location.longitude,
+      });
+    }
+  };
 
   const selectedPlaceId = route.params.placeId;
 
@@ -56,11 +64,11 @@ const PlaceDetails = ({
 };
 
 const styles = StyleSheet.create({
-    fallback: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
+  fallback: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   image: {
     height: "35%",
     minHeight: 300,
