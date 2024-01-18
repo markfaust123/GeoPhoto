@@ -16,7 +16,11 @@ import {
 } from "@react-navigation/native";
 import type { Location } from "../../lib/types";
 
-const LocationPicker = () => {
+const LocationPicker = ({
+  onPickLocation,
+}: {
+  onPickLocation: (location: Location) => void;
+}) => {
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
   const [pickedLocation, setPickedLocation] = useState<Location>();
@@ -32,6 +36,12 @@ const LocationPicker = () => {
       setPickedLocation(mapPickedLocation);
     }
   }, [route, isFocused]);
+
+  useEffect(() => {
+    if (pickedLocation) {
+       onPickLocation(pickedLocation);
+    }
+  }, [pickedLocation, onPickLocation]);
 
   const verifyPermissions = async () => {
     if (
