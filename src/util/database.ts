@@ -51,4 +51,5 @@ export const insertPlace = (place: Place) => {
       );
     });
   });
+  return promise;
 };
